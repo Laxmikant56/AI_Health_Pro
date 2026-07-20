@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "weight": { "type": "number" },
+        "height": { "type": "number" },
+        "age": { "type": "number" },
+        "diet": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name"]
+    },
+    "GlucoseReading": {
+      "title": "Glucose Reading",
+      "description": "Log of blood sugar readings",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "value": { "type": "number" },
+        "type": { "type": "string", "enum": ["fasting", "post-meal", "random"] },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "value", "type", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile document"
+    },
+    "/users/{userId}/readings/{readingId}": {
+      "schema": "GlucoseReading",
+      "description": "Individual blood sugar entries"
+    }
+  }
+}
